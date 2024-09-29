@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
 import axios from 'axios';//Esto es lo que se usa para poder hacer peticiones al backend, nomas instalenlo con la terminal
 
 const LoginForm = () => {
@@ -7,7 +9,7 @@ const LoginForm = () => {
   const [login, setLogin] = useState({ //Aqui se guarda lo que hayas puesto en el formulario
     correo: '',
     contrasena: ''
-  });
+  })
 
   var [user, setUser] = useState({ //Aqui se guarda lo que se recibe de la base de datos
     id:0,
@@ -15,7 +17,7 @@ const LoginForm = () => {
     correo: '',
     contraseña: '',
     imguser: ''
-  });
+  })
 
   const mandarDatos = () =>{ //Este metodo es el que se comunica con el backend
     axios.get('http://localhost:3000/api/login/'+login.correo).then(function (response) { //La url es la de la api a la que se comunica y se le agrega el parametro con el que se va a hacer la consulta
@@ -80,11 +82,11 @@ const LoginForm = () => {
                 <Form.Check type="checkbox" label="Recuérdame"/>
               </Form.Group>
 
-              <Button variant="primary" type='submit' className="w-100 mb-3" onClick={mandarDatos}> 
+              <Button variant="primary" className="w-100 mb-3" onClick={mandarDatos}> 
                 Iniciar sesión
               </Button>
             </Form>
-            <span>¿No tienes una cuenta? <a href="#">Regístrate</a></span>
+            <span>¿No tienes una cuenta? <Link to="/register">Regístrate</Link></span>
           </div>
         </Col>
       </Row>
