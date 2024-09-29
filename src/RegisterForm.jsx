@@ -1,7 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 
 const RegisterForm = () => {
+
+  const [Register, setRegister] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confpassword: "",
+  })
+
+  const addUser = () =>{  
+    if(Register.password == Register.confpassword){
+      alert("Usuario " + Register.username + " Registrado")
+      axios.post('http://localhost:3000/api/login/', Register).then(() =>{
+      alert("Usuario añadido")
+    })
+    //Y ya aqui hacen para pasar a la pantalla inicial
+    }else{
+      alert("Las contraseñas no coinciden")
+    }
+    
+  }
+
+  const handleChange = (e) => { //Con este metodo se guardan los datos del formulario, no se como funciona me lo encontre por ahi
+    const { name, value } = e.target;
+    setRegister(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
   return (
     <Container className="d-flex align-items-center justify-content-center vh-100 p-0" fluid>
       <Row className="justify-content-center w-100">
@@ -11,25 +40,25 @@ const RegisterForm = () => {
             <Form>
               <Form.Group className="mb-3" controlId="formUsername">
                 <Form.Label>Nombre de usuario</Form.Label>
-                <Form.Control type="text" placeholder="Ingresa tu nombre de usuario" required/>
+                <Form.Control type="text" placeholder="Ingresa tu nombre de usuario" required name = "username" onChange={handleChange}/>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formEmail">
                 <Form.Label>Correo electrónico</Form.Label>
-                <Form.Control type="email" placeholder="Ingresa tu correo electrónico" required/>
+                <Form.Control type="email" placeholder="Ingresa tu correo electrónico" required name='email' onChange={handleChange}/>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formPassword">
                 <Form.Label>Contraseña</Form.Label>
-                <Form.Control type="password" placeholder="Ingresa tu contraseña" required/>
+                <Form.Control type="password" placeholder="Ingresa tu contraseña" required name='password' onChange={handleChange}/>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formConfirmedPassword">
                 <Form.Label>Confirmar contraseña</Form.Label>
-                <Form.Control type="password" placeholder="Confirma la contraseña" required/>
+                <Form.Control type="password" placeholder="Confirma la contraseña" required name='confpassword' onChange={handleChange}/>
               </Form.Group>
 
-              <Button variant="primary" type="submit" className="w-100 mb-3">
+              <Button variant="primary" type="submit" className="w-100 mb-3" onClick={addUser}>
                 Registrar
               </Button>
             </Form>

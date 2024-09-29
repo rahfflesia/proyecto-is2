@@ -1,5 +1,5 @@
 import React from 'react';
-import ResponsiveForm from './Form';
+import ResponsiveForm from './Form'; // Importa el componente del formulario
 import RegisterForm from './RegisterForm';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
