@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Asegúrate de que Bootstrap Icons está importado
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function HeaderChatUI() {
   return (
