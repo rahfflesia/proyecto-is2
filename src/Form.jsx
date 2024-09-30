@@ -81,8 +81,8 @@ const LoginForm = () => {
               <Form.Group className="mb-3" controlId="formCheckbox">
                 <Form.Check type="checkbox" label="Recuérdame"/>
               </Form.Group>
-
-              <Button variant="primary" className="w-100 mb-3" onClick={mandarDatos}> 
+              <span>¿Haz olvidado tu contraseña? <a href="#">Click aquí</a></span>
+              <Button variant="primary" className="w-100 mb-3 mt-3" onClick={mandarDatos}> 
                 Iniciar sesión
               </Button>
             </Form>
