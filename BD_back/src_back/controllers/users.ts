@@ -75,4 +75,15 @@ export const updateuser = async(req: Request, res: Response) =>{
     }
 }
 
-//cuando quieras agregar una funcion para actualizar datos usas el metodo put
+export const deleteuser = async(req:Request, res:Response) =>{
+    const {email} = req.params
+    console.log(email)
+    await User.destroy({ //Hacemos la consulta y obtenemos el usuario regustrado con ese email
+        where:{
+            email: email
+        }
+    })
+    res.json({
+        msg: 'Usuario eliminaod',
+    })
+}

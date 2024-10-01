@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateuser = exports.addUSer = exports.getUSerbypk = exports.getUSer = exports.getUsers = void 0;
+exports.deleteuser = exports.updateuser = exports.addUSer = exports.getUSerbypk = exports.getUSer = exports.getUsers = void 0;
 const user_1 = __importDefault(require("../models/user"));
 const userinfo_1 = __importDefault(require("../models/userinfo"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -87,4 +87,16 @@ const updateuser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.updateuser = updateuser;
-//cuando quieras agregar una funcion para actualizar datos usas el metodo put
+const deleteuser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.params;
+    console.log(email);
+    yield user_1.default.destroy({
+        where: {
+            email: email
+        }
+    });
+    res.json({
+        msg: 'Usuario eliminaod',
+    });
+});
+exports.deleteuser = deleteuser;

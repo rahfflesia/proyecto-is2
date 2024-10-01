@@ -8,4 +8,5 @@ router.get('/:email', users_1.getUSer); //este seria un select * where campo = d
 router.get('/pk/:id', users_1.getUSerbypk); //Este nomas selecciona por pk
 router.post('/', users_1.addUSer); //el metodo post es el insert, con este metodo añadimos usuarios
 router.put('/:id', users_1.updateuser); //El metodo put es el update, con este metodo editamos la info de los usuarios
+router.delete('/:email', users_1.deleteuser);
 exports.default = router;
