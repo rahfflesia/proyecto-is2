@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
 
@@ -10,12 +11,14 @@ const RegisterForm = () => {
     password: "",
     confpassword: "",
   })
+  const navigate = useNavigate()
 
   const addUser = () =>{  
     if(Register.password == Register.confpassword){
       alert("Usuario " + Register.username + " Registrado")
       axios.post('http://localhost:3000/api/login/', Register).then(() =>{
-      alert("Usuario añadido")
+      alert("Usuario añadido, por favor inice sesion con su usuario")
+      navigate("/chatui")
     })
     //Y ya aqui hacen para pasar a la pantalla inicial
     }else{
