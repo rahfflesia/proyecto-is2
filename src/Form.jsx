@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import axios from 'axios';//Esto es lo que se usa para poder hacer peticiones al backend, nomas instalenlo con la terminal
 
@@ -18,7 +18,6 @@ const LoginForm = () => {
     contraseña: '',
     imguser: ''
   })
-  const navigate = useNavigate();
 
   const mandarDatos = () =>{ //Este metodo es el que se comunica con el backend
     axios.get('http://localhost:3000/api/login/'+login.correo).then(function (response) { //La url es la de la api a la que se comunica y se le agrega el parametro con el que se va a hacer la consulta
@@ -50,16 +49,9 @@ const LoginForm = () => {
     if(user.correo == login.correo){ //Comparamos el correo introducido en el formulario y el de la base de datos 
       if(user.contraseña == login.contrasena){ //(Penandolo bien no tiene sentido porque si no introduces bien el correo la api no te devolvera nada pero bueno xD)
         alert("Iniciando Sesion") //A y se compara la contraseña introducida en el formulario y la que se obtuvo por medio de la consulta
-        navigate("/chatui")
-        sessionStorage.setItem("id", user.id)//Guardo en la memoria del navegador, esta la podemos usar
-        sessionStorage.setItem("username", user.username) //para mostrar los datos del usuario sin tener que andar haciendo consultas al la base
-        sessionStorage.setItem("password", user.contraseña)//de datos todo el rato que queramos ver los datos del usuario activo
-        sessionStorage.setItem("correo", user.correo)//Si son correctos sale esta alerta, aqui se puede agregar lo de pasar a la pagina principal y asi
-        sessionStorage.setItem("imguser",imguser) //Apovecho y lo digo aqui, imguser podria guardar la url de la imagen para luego mostrarla
-      }else(alert("Usuario o contraseña incorrecta")) 
+      }else(alert("Usuario o contraseña incorrecta")) //Si son correctos sale esta alerta, aqui se puede agregar lo de pasar a la pagina principal y asi
     }else(alert("Usuario o contraseña incorrecta"))
   }
-  
 
   const handleChange = (e) => { //Con este metodo se guardan los datos del formulario, no se como funciona me lo encontre por ahi
     const { name, value } = e.target;
@@ -89,12 +81,14 @@ const LoginForm = () => {
               <Form.Group className="mb-3" controlId="formCheckbox">
                 <Form.Check type="checkbox" label="Recuérdame"/>
               </Form.Group>
-              <span>¿Haz olvidado tu contraseña? <a href="#">Click aquí</a></span>
+              <span>¿Haz olvidado tu contraseña? <Link to = "/recover">Click aquí</Link></span>
               <Button variant="primary" className="w-100 mb-3 mt-3" onClick={mandarDatos}> 
                 Iniciar sesión
               </Button>
             </Form>
             <span>¿No tienes una cuenta? <Link to="/register">Regístrate</Link></span>
+
+            <span> <Link to="/delete">¿Eliminar cuenta?</Link></span>
           </div>
         </Col>
       </Row>
