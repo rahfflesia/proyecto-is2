@@ -11,12 +11,13 @@ const DeleteAccount = () => {
         const confirmDelete = window.confirm('¿Estas seguro de que deseas eliminar tu cuenta? ');
 
         if (confirmDelete) {
+            alert (email)
             try {
-                const response = await axios.delete('http://localhost:3000/api/delete', {
+                const response = await axios.delete('http://localhost:3000/api/login/' + email, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     },
-                    data: { email, password }  // Enviar correo y contraseña para confirmar la identidad
+                    
                 });
 
                 setMessage('Tu cuenta ha sido eliminada correctamente');
