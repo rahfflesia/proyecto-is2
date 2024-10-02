@@ -60,8 +60,14 @@ export const addUSer = async (req: Request, res:Response) =>{ //Esta es para añ
 
 export const updateuser = async(req: Request, res: Response) =>{
     const {body} = req
-    const {id} = req.params
-    const user = await User.findByPk(id)
+    const {email} = req.body
+
+    console.log(email)
+    const user = await User.findOne({ //Hacemos la consulta y obtenemos el usuario regustrado con ese email
+        where:{
+            email: email
+        }
+    })
     try{
         await user?.update(body)
         console.log(body)
@@ -86,4 +92,8 @@ export const deleteuser = async(req:Request, res:Response) =>{
     res.json({
         msg: 'Usuario eliminaod',
     })
+}
+
+export const sendemail = async(req:Request, res:Response) =>{
+    console.log("Manda email")
 }
