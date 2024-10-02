@@ -4,20 +4,24 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const ResetPassword = () => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [data, setData] = useState({ //Aqui se guarda lo que hayas puesto en el formulario
+    email: sessionStorage.getItem('email'),
+    password: '',
+    confirmPassword:''
+  })
   const { token } = useParams();  // Aquí se obtiene el token desde la URL
+  const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
   const handleReset = async () => {
-    if (password !== confirmPassword) {
+    if (data.password !== data.confirmPassword) {
       setMessage('Las contraseñas no coinciden.');
+      console.log('1' + data.password + '2' + data.confirmPassword)
       return;
     }
 
     try {
-      const response = await axios.post(`http://localhost:3000/api/reset/${token}`, { password });
+      await axios.put('http://localhost:3000/api/login/',data);
       setMessage('Tu contraseña ha sido restablecida exitosamente.');
       
       setTimeout(() => {
@@ -26,8 +30,17 @@ const ResetPassword = () => {
 
     } catch (error) {
       setMessage('Hubo un error al restablecer la contraseña. Por favor intenta nuevamente.');
+      alert(data.email)
       console.log(error);
     }
+  };
+
+  const handleChange = (e) => { //Con este metodo se guardan los datos del formulario, no se como funciona me lo encontre por ahi
+    const { name, value } = e.target;
+    setData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
   return (
@@ -40,15 +53,13 @@ const ResetPassword = () => {
             <Form>
               <Form.Group className="mb-3" controlId="formNewPassword">
                 <Form.Label>Nueva contraseña</Form.Label>
-                <Form.Control type="password" placeholder="Ingresa tu nueva contraseña" onChange={(e) => setPassword(e.target.value)}
-                  value={password}                   
+                <Form.Control type="password" placeholder="Ingresa tu nueva contraseña" name='password' onChange={handleChange}            
                   required 
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formConfirmPassword">
                 <Form.Label>Confirma tu nueva contraseña</Form.Label>
-                <Form.Control type="password" placeholder="Confirma tu nueva contraseña" onChange={(e) => setConfirmPassword(e.target.value)}                                     
-                  value={confirmPassword}                 
+                <Form.Control type="password" placeholder="Confirma tu nueva contraseña" name='confirmPassword' onChange={handleChange}                                                
                   required 
                 />
               </Form.Group>

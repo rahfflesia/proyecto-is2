@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const DeleteAccount = () => {
     const [email, setEmail] = useState('');  // Estado para almacenar el correo
     const [password, setPassword] = useState('');  // Estado para almacenar la contraseña
     const [message, setMessage] = useState('');  // Mensajes de error o éxito
+    const navigate = useNavigate()
 
     const handleDeleteAccount = async () => {
         const confirmDelete = window.confirm('¿Estas seguro de que deseas eliminar tu cuenta? ');
@@ -21,6 +23,8 @@ const DeleteAccount = () => {
                 });
 
                 setMessage('Tu cuenta ha sido eliminada correctamente');
+                navigate("/login")
+
             } catch (error) {
                 setMessage('La cuenta no existe');
                 console.error(error);

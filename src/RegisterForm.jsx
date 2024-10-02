@@ -18,7 +18,7 @@ const RegisterForm = () => {
       alert("Usuario " + Register.username + " Registrado")
       axios.post('http://localhost:3000/api/login/', Register).then(() =>{
       alert("Usuario añadido, por favor inice sesion con su usuario")
-      navigate("/chatui")
+      navigate("/login")
     })
     //Y ya aqui hacen para pasar a la pantalla inicial
     }else{

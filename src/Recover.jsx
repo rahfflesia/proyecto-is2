@@ -11,8 +11,8 @@ const RecoverPass = () => {
   const handleRecover = async () => {
     try {
       // Aquí envías el correo al backend para la recuperación de contraseña
-      const response = await axios.post('http://localhost:3000/api/recover', { email });
-      
+      axios.post('http://localhost:3000/api/recover'); //edite esta parte porque como el metodo no hace nada da un error, ahora solo imprime en la consola del back
+      sessionStorage.setItem('email',email)
       // Si la solicitud es exitosa, muestra un mensaje y redirige a la pantalla de "Reset"
       setMessage('Se ha enviado un enlace de recuperación a tu correo electrónico.');
       
